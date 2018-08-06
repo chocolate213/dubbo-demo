@@ -51,6 +51,7 @@ public class MainTest {
         userManagerService.saveUser(new User(3, "User3", 23, new Date()));
         userManagerService.saveUser(new User(4, "User4", 25, new Date()));
         userManagerService.saveUser(new User(5, "User5", 22, new Date()));
+        userManagerService.saveUser(new User(6, "User5", 21, new Date()));
     }
 
     @Test
