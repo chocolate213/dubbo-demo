@@ -1,6 +1,7 @@
 package cn.jxzhang.dubbo.consumer;
 
 import cn.jxzhang.dubbo.demo.api.GreetingService;
+import cn.jxzhang.dubbo.demo.api.MutiServiceImplication;
 import cn.jxzhang.dubbo.demo.api.UserManagerService;
 import cn.jxzhang.dubbo.demo.domain.User;
 import org.junit.Test;
@@ -34,6 +35,9 @@ public class MainTest {
     @Resource
     private UserManagerService userManagerService;
 
+    @Resource
+    private MutiServiceImplication mutiServiceImplication;
+
     @Test
     public void test() {
         String hello = greetingService.sayHello("world"); // 执行远程方法
@@ -42,12 +46,11 @@ public class MainTest {
 
     @Test
     public void testSaveUser() {
-        userManagerService.saveUser(new User(2, "liSi", 22, new Date()));
-    }
-
-    @Test
-    public void testSaveUser2() {
-        userManagerService.saveUser(new User(1, "zhangSan", 22, new Date()));
+        userManagerService.saveUser(new User(1, "User1", 21, new Date()));
+        userManagerService.saveUser(new User(2, "User2", 21, new Date()));
+        userManagerService.saveUser(new User(3, "User3", 23, new Date()));
+        userManagerService.saveUser(new User(4, "User4", 25, new Date()));
+        userManagerService.saveUser(new User(5, "User5", 22, new Date()));
     }
 
     @Test
@@ -69,6 +72,15 @@ public class MainTest {
     @Test
     public void testGetUserById() {
         User userById = userManagerService.getUserById(1);
+        User userById2 = userManagerService.getUserById(1);
+        User userById3 = userManagerService.getUserById(1);
         System.out.println(userById);
+        System.out.println(userById2);
+        System.out.println(userById3);
+    }
+
+    @Test
+    public void testMutiServiceImplication() {
+        mutiServiceImplication.printServiceName();
     }
 }

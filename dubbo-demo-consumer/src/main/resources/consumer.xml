@@ -12,6 +12,13 @@
     <!-- 生成远程服务代理 -->
     <dubbo:reference id="greetingService" interface="cn.jxzhang.dubbo.demo.api.GreetingService" />
 
-    <dubbo:reference id="userManagerService" interface="cn.jxzhang.dubbo.demo.api.UserManagerService" />
+    <!-- 使用version参数控制连接服务提供者接口版本, 并使用LRU缓存 -->
+    <dubbo:reference id="userManagerService" interface="cn.jxzhang.dubbo.demo.api.UserManagerService" version="1.0.1">
+
+        <!-- 在getUserById方法上启用缓存 -->
+        <dubbo:method name="getUserById" cache="lru" />
+    </dubbo:reference>
+
+    <dubbo:reference id="mutiServiceImplication" interface="cn.jxzhang.dubbo.demo.api.MutiServiceImplication" group="g1"/>
 
 </beans>

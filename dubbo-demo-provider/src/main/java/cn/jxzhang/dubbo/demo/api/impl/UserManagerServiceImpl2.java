@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
  * @author zhangjiaxing
  * @version 1.0
  */
-public class UserManagerServiceImpl implements UserManagerService {
+public class UserManagerServiceImpl2 implements UserManagerService {
 
     private final ConcurrentHashMap<Integer, User> userList = new ConcurrentHashMap<>();
 
-    public UserManagerServiceImpl() {
+    public UserManagerServiceImpl2() {
         ScheduledExecutorService service = new ScheduledThreadPoolExecutor(10);
-        service.scheduleAtFixedRate(() -> System.out.println("current user list(version: 1.0.0): " + userList), 0, 3, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(() -> System.out.println("current user list(version: 1.0.1): " + userList), 0, 3, TimeUnit.SECONDS);
     }
 
     @Override
