@@ -21,13 +21,11 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration("classpath*:consumer.xml")
-
 public class MainTest {
 
     /**
      * dubbo 中定义的服务需要使用 {@link Resource} 注解注入，默认为byName，不能使用
      * {@link org.springframework.beans.factory.annotation.Autowired} ，否则idea会报错
-     *
      */
     @Resource
     private GreetingService greetingService;

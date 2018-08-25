@@ -6,9 +6,6 @@ import cn.jxzhang.dubbo.demo.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * UserManagerServiceImpl
@@ -20,10 +17,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     private final ConcurrentHashMap<Integer, User> userList = new ConcurrentHashMap<>();
 
-    public UserManagerServiceImpl() {
-        ScheduledExecutorService service = new ScheduledThreadPoolExecutor(10);
-        service.scheduleAtFixedRate(() -> System.out.println("current user list(version: 1.0.0): " + userList), 0, 3, TimeUnit.SECONDS);
-    }
+    public UserManagerServiceImpl() {}
 
     @Override
     public User getUserById(Integer id) {
@@ -51,7 +45,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     @Override
     public List<User> users() {
-        System.out.println("get user list.");
+        System.out.println("get user list (version: 1.0.1): " + userList);
         return new ArrayList<>(userList.values());
     }
 }

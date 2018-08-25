@@ -6,8 +6,14 @@
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="consumer-of-helloworld-app"  />
 
-    <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry protocol="zookeeper" address="10.26.15.214" client="curator" port="2181"/>
+    <!-- 使用zookeeper注册中心暴露服务地址
+        protocol: 注册中心协议
+        address:  注册中心地址
+        port:     注册端口号
+        client:   指定zookeeper客户端类型
+        group:    如果注册中心为zookeeper，group则为zookeeper根节点，如果不指定则默认根节点为dubbo，可以写成路径形式
+    -->
+    <dubbo:registry protocol="zookeeper" address="10.26.15.214" client="curator" port="2181" group="/home/dev"/>
 
     <!-- 生成远程服务代理 -->
     <dubbo:reference id="greetingService" interface="cn.jxzhang.dubbo.demo.api.GreetingService" />
@@ -17,6 +23,7 @@
 
         <!-- 在getUserById方法上启用缓存 -->
         <dubbo:method name="getUserById" cache="lru" />
+
     </dubbo:reference>
 
     <dubbo:reference id="mutiServiceImplication" interface="cn.jxzhang.dubbo.demo.api.MutiServiceImplication" group="g1"/>
