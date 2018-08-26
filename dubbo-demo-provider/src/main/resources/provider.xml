@@ -13,10 +13,15 @@
         client:   指定zookeeper客户端类型
         group:    如果注册中心为zookeeper，group则为zookeeper根节点，如果不指定则默认根节点为dubbo，可以写成路径形式
     -->
-    <dubbo:registry protocol="zookeeper" address="10.26.15.214" client="curator" port="2181" group="/home/dev"/>
+    <dubbo:registry protocol="zookeeper"
+                    address="10.26.15.214"
+                    client="curator"
+                    port="2181"
+                    group="/home/dev"/>
 
-    <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="20880" />
+    <!-- 用dubbo协议在20880端口暴露服务, 可以使用 telnet命令直接访问：telnet localhost 20880-->
+    <!-- 指定序列化方式 -->
+    <dubbo:protocol name="dubbo" port="20880" serialization="kryo" optimizer="cn.jxzhang.dubbo.demo.KryoSerializationOptimizer"/>
 
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="cn.jxzhang.dubbo.demo.api.GreetingService" ref="greetingService" />
@@ -40,5 +45,9 @@
     <bean id="mutiServiceImplication1" class="cn.jxzhang.dubbo.demo.api.impl.MutiServiceImplication1"/>
 
     <bean id="mutiServiceImplication2" class="cn.jxzhang.dubbo.demo.api.impl.MutiServiceImplication2"/>
+
+    <dubbo:service interface="cn.jxzhang.dubbo.demo.api.TimeoutService" ref="timeoutService"/>
+
+    <bean id="timeoutService" class="cn.jxzhang.dubbo.demo.api.impl.TimeoutServiceImpl"/>
 
 </beans>

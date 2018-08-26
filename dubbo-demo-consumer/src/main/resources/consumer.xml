@@ -12,8 +12,12 @@
         port:     注册端口号
         client:   指定zookeeper客户端类型
         group:    如果注册中心为zookeeper，group则为zookeeper根节点，如果不指定则默认根节点为dubbo，可以写成路径形式
+        file:     这个文件会缓存注册中心的列表和服务提供者列表。当注册中心不可用时，保证根据上次成功请求缓存信息成功调用接口
     -->
-    <dubbo:registry protocol="zookeeper" address="10.26.15.214" client="curator" port="2181" group="/home/dev"/>
+    <dubbo:registry protocol="zookeeper" address="10.26.15.214" client="curator" port="2181" group="/home/dev" file="D:/dubbo.cache" />
+
+    <!-- 服务消费方配置序列化方式 -->
+    <dubbo:protocol serialization="kryo" optimizer="cn.jxzhang.dubbo.demo.KryoSerializationOptimizer"/>
 
     <!-- 生成远程服务代理 -->
     <dubbo:reference id="greetingService" interface="cn.jxzhang.dubbo.demo.api.GreetingService" />
@@ -21,11 +25,16 @@
     <!-- 使用version参数控制连接服务提供者接口版本, 并使用LRU缓存 -->
     <dubbo:reference id="userManagerService" interface="cn.jxzhang.dubbo.demo.api.UserManagerService" version="1.0.1">
 
-        <!-- 在getUserById方法上启用缓存 -->
-        <dubbo:method name="getUserById" cache="lru" />
+        <!-- 在getUserById方法上启用缓存, 并设置接口超时时间为1000 -->
+        <dubbo:method name="getUserById" cache="lru" timeout="1000"/>
 
     </dubbo:reference>
 
     <dubbo:reference id="mutiServiceImplication" interface="cn.jxzhang.dubbo.demo.api.MutiServiceImplication" group="g1"/>
+
+    <!-- 测试接口超时时间 -->
+    <dubbo:reference id="timeoutService" interface="cn.jxzhang.dubbo.demo.api.TimeoutService">
+        <dubbo:method name="shouldTimeout" timeout="1000"/>
+    </dubbo:reference>
 
 </beans>
