@@ -110,3 +110,7 @@
 3. best practice
 
 - 每个接口都需要配置版本号，为后续不兼容升级提供可能
+
+4. dubbo所有可选依赖都需要手动添加：
+
+http://dubbo.apache.org/zh-cn/docs/user/dependencies.html
